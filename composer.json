@@ -15,7 +15,6 @@
     "symfony/framework-bundle": "^6.4",
     "symfony/http-kernel": "^6.4",
     "symfony/yaml": "^6.4 || ^7.1",
-    "tourze/http-client-bundle": "0.1.*",
     "tourze/wechat-mini-program-bundle": "0.1.*"
   },
   "require-dev": {
