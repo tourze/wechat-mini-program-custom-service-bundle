@@ -17,7 +17,7 @@ abstract class AbstractMessageRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($message);
 
-        if ($flush) {
+        if ((bool) $flush) {
             $this->getEntityManager()->flush();
         }
     }
@@ -26,7 +26,7 @@ abstract class AbstractMessageRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->remove($message);
 
-        if ($flush) {
+        if ((bool) $flush) {
             $this->getEntityManager()->flush();
         }
     }

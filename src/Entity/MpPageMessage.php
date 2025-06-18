@@ -15,25 +15,12 @@ use WechatMiniProgramCustomServiceBundle\Repository\MpMessageRepository;
 #[ORM\Entity(repositoryClass: MpMessageRepository::class)]
 class MpPageMessage extends AbstractMessage
 {
-    /**
-     * 小程序卡片标题
-     */
     #[ORM\Column(length: 255, options: ['comment' => '小程序卡片标题'])]
     private ?string $title = null;
 
-    /**
-     * 小程序的页面路径
-     *
-     * 跳转到小程序的页面路径，可带参数
-     */
     #[ORM\Column(length: 255, options: ['comment' => '小程序页面路径'])]
     private ?string $pagePath = null;
 
-    /**
-     * 小程序卡片图片的媒体ID
-     *
-     * 可以通过文件上传接口获得
-     */
     #[ORM\Column(length: 255, options: ['comment' => '小程序卡片图片的媒体ID'])]
     private ?string $thumbMediaId = null;
 
@@ -100,5 +87,10 @@ class MpPageMessage extends AbstractMessage
                 'thumb_media_id' => $this->getThumbMediaId(),
             ],
         ];
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getId();
     }
 }

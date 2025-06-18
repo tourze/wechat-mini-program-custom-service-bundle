@@ -15,11 +15,6 @@ use WechatMiniProgramCustomServiceBundle\Repository\ImageMessageRepository;
 #[ORM\Entity(repositoryClass: ImageMessageRepository::class)]
 class ImageMessage extends AbstractMessage
 {
-    /**
-     * 图片媒体文件ID
-     *
-     * 可以通过文件上传接口获得
-     */
     #[ORM\Column(length: 255, options: ['comment' => '图片媒体文件ID'])]
     private ?string $mediaId = null;
 
@@ -64,5 +59,10 @@ class ImageMessage extends AbstractMessage
                 'media_id' => $this->getMediaId(),
             ],
         ];
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getId();
     }
 }

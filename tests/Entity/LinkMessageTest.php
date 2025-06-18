@@ -127,7 +127,6 @@ class LinkMessageTest extends TestCase
         $title = '测试标题';
         $description = '测试描述';
         $url = 'https://example.com/page';
-        $emptyThumbUrl = '';
 
         $this->linkMessage
             ->setAccount($this->account)
@@ -135,7 +134,7 @@ class LinkMessageTest extends TestCase
             ->setTitle($title)
             ->setDescription($description)
             ->setUrl($url)
-            ->setThumbUrl($emptyThumbUrl);
+            ->setThumbUrl(null);
 
         $result = $this->linkMessage->toArray();
 

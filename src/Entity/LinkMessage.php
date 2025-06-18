@@ -15,27 +15,15 @@ use WechatMiniProgramCustomServiceBundle\Repository\LinkMessageRepository;
 #[ORM\Entity(repositoryClass: LinkMessageRepository::class)]
 class LinkMessage extends AbstractMessage
 {
-    /**
-     * 消息标题
-     */
     #[ORM\Column(length: 255, options: ['comment' => '消息标题'])]
     private ?string $title = null;
 
-    /**
-     * 图文链接消息描述
-     */
     #[ORM\Column(length: 255, options: ['comment' => '图文链接消息描述'])]
     private ?string $description = null;
 
-    /**
-     * 图文链接消息被点击后跳转的链接
-     */
     #[ORM\Column(length: 255, options: ['comment' => '图文链接消息跳转链接'])]
     private ?string $url = null;
 
-    /**
-     * 图文链接消息的图片链接，支持 JPG、PNG 格式
-     */
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '图文链接消息的图片链接'])]
     private ?string $thumbUrl = null;
 
@@ -112,7 +100,7 @@ class LinkMessage extends AbstractMessage
             'url' => $this->getUrl(),
         ];
 
-        if ($this->getThumbUrl()) {
+        if ($this->getThumbUrl() !== null) {
             $link['thumb_url'] = $this->getThumbUrl();
         }
 
@@ -121,5 +109,10 @@ class LinkMessage extends AbstractMessage
             'msgtype' => $this->getMsgtype(),
             'link' => $link,
         ];
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getId();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace WechatMiniProgramCustomServiceBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use WechatMiniProgramCustomServiceBundle\Repository\TextMessageRepository;
 
@@ -15,12 +16,7 @@ use WechatMiniProgramCustomServiceBundle\Repository\TextMessageRepository;
 #[ORM\Entity(repositoryClass: TextMessageRepository::class)]
 class TextMessage extends AbstractMessage
 {
-    /**
-     * 消息文本内容
-     *
-     * 最长不超过2048个字节
-     */
-    #[ORM\Column(type: 'text', options: ['comment' => '消息文本内容'])]
+    #[ORM\Column(type: Types::TEXT, options: ['comment' => '消息文本内容'])]
     private ?string $content = null;
 
     /**
@@ -64,5 +60,10 @@ class TextMessage extends AbstractMessage
                 'content' => $this->getContent(),
             ],
         ];
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getId();
     }
 }

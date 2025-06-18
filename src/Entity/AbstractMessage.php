@@ -21,7 +21,7 @@ abstract class AbstractMessage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(options: ['comment' => '消息ID'])]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     /**
      * 关联的微信小程序账号
@@ -39,12 +39,12 @@ abstract class AbstractMessage
     /**
      * 消息创建时间
      */
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['comment' => '消息创建时间'])]
-    private ?\DateTime $createTime;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '消息创建时间'])]
+    private \DateTimeImmutable $createTime;
 
     public function __construct()
     {
-        $this->createTime = new \DateTime();
+        $this->createTime = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -76,7 +76,7 @@ abstract class AbstractMessage
         return $this;
     }
 
-    public function getCreateTime(): ?\DateTime
+    public function getCreateTime(): \DateTimeImmutable
     {
         return $this->createTime;
     }

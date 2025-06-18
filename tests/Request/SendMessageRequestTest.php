@@ -49,8 +49,6 @@ class SendMessageRequestTest extends TestCase
         $this->request->setMessage($this->message);
 
         $options = $this->request->getRequestOptions();
-
-        $this->assertIsArray($options);
         $this->assertArrayHasKey('json', $options);
         $this->assertSame($messageArray, $options['json']);
     }

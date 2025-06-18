@@ -34,7 +34,7 @@ class AbstractMessageTest extends TestCase
     {
         $message = $this->createConcreteMessage();
 
-        $this->assertInstanceOf(\DateTime::class, $message->getCreateTime());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $message->getCreateTime());
         $this->assertLessThanOrEqual(2, time() - $message->getCreateTime()->getTimestamp());
     }
 
