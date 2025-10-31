@@ -3,6 +3,7 @@
 namespace WechatMiniProgramCustomServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use WechatMiniProgramCustomServiceBundle\Repository\LinkMessageRepository;
 
 /**
@@ -16,15 +17,24 @@ use WechatMiniProgramCustomServiceBundle\Repository\LinkMessageRepository;
 class LinkMessage extends AbstractMessage
 {
     #[ORM\Column(length: 255, options: ['comment' => '消息标题'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, options: ['comment' => '图文链接消息描述'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, options: ['comment' => '图文链接消息跳转链接'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    #[Assert\Url]
     private ?string $url = null;
 
     #[ORM\Column(length: 255, nullable: true, options: ['comment' => '图文链接消息的图片链接'])]
+    #[Assert\Length(max: 255)]
+    #[Assert\Url]
     private ?string $thumbUrl = null;
 
     public function getTitle(): ?string
@@ -32,11 +42,9 @@ class LinkMessage extends AbstractMessage
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -44,11 +52,9 @@ class LinkMessage extends AbstractMessage
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getUrl(): ?string
@@ -56,11 +62,9 @@ class LinkMessage extends AbstractMessage
         return $this->url;
     }
 
-    public function setUrl(string $url): static
+    public function setUrl(string $url): void
     {
         $this->url = $url;
-
-        return $this;
     }
 
     public function getThumbUrl(): ?string
@@ -68,11 +72,9 @@ class LinkMessage extends AbstractMessage
         return $this->thumbUrl;
     }
 
-    public function setThumbUrl(?string $thumbUrl): static
+    public function setThumbUrl(?string $thumbUrl): void
     {
         $this->thumbUrl = $thumbUrl;
-
-        return $this;
     }
 
     public function getMsgtype(): string
@@ -95,17 +97,17 @@ class LinkMessage extends AbstractMessage
     public function toArray(): array
     {
         $link = [
-            'title' => $this->getTitle(),
-            'description' => $this->getDescription(),
-            'url' => $this->getUrl(),
+            'title' => $this->getTitle() ?? '',
+            'description' => $this->getDescription() ?? '',
+            'url' => $this->getUrl() ?? '',
         ];
 
-        if ($this->getThumbUrl() !== null) {
+        if (null !== $this->getThumbUrl()) {
             $link['thumb_url'] = $this->getThumbUrl();
         }
 
         return [
-            'touser' => $this->getTouser(),
+            'touser' => $this->getTouser() ?? '',
             'msgtype' => $this->getMsgtype(),
             'link' => $link,
         ];

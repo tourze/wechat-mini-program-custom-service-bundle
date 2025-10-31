@@ -4,7 +4,24 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+  WechatMiniProgramCustomServiceBundle\Controller\:
+    resource: '../../Controller/'
+
   WechatMiniProgramCustomServiceBundle\EventSubscriber\:
     resource: '../../EventSubscriber/'
+
   WechatMiniProgramCustomServiceBundle\Repository\:
     resource: '../../Repository/'
+
+  WechatMiniProgramCustomServiceBundle\Service\:
+    resource: '../../Service/'
+
+  # 显式配置 AdminMenu 服务
+  wechat_mini_program_custom_service.admin_menu:
+    class: WechatMiniProgramCustomServiceBundle\Service\AdminMenu
+    public: true
+
+  # 显式配置 AttributeControllerLoader 服务
+  wechat_mini_program_custom_service.attribute_controller_loader:
+    class: WechatMiniProgramCustomServiceBundle\Service\AttributeControllerLoader
+    public: true

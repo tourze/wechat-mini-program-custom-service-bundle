@@ -3,6 +3,7 @@
 namespace WechatMiniProgramCustomServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use WechatMiniProgramCustomServiceBundle\Repository\ImageMessageRepository;
 
 /**
@@ -16,6 +17,8 @@ use WechatMiniProgramCustomServiceBundle\Repository\ImageMessageRepository;
 class ImageMessage extends AbstractMessage
 {
     #[ORM\Column(length: 255, options: ['comment' => '图片媒体文件ID'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $mediaId = null;
 
     /**
@@ -29,11 +32,9 @@ class ImageMessage extends AbstractMessage
     /**
      * 设置图片媒体文件ID
      */
-    public function setMediaId(string $mediaId): static
+    public function setMediaId(string $mediaId): void
     {
         $this->mediaId = $mediaId;
-
-        return $this;
     }
 
     public function getMsgtype(): string
@@ -53,10 +54,10 @@ class ImageMessage extends AbstractMessage
     public function toArray(): array
     {
         return [
-            'touser' => $this->getTouser(),
+            'touser' => $this->getTouser() ?? '',
             'msgtype' => $this->getMsgtype(),
             'image' => [
-                'media_id' => $this->getMediaId(),
+                'media_id' => $this->getMediaId() ?? '',
             ],
         ];
     }

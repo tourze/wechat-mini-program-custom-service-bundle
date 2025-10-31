@@ -3,6 +3,7 @@
 namespace WechatMiniProgramCustomServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use WechatMiniProgramCustomServiceBundle\Repository\MpMessageRepository;
 
 /**
@@ -16,12 +17,18 @@ use WechatMiniProgramCustomServiceBundle\Repository\MpMessageRepository;
 class MpPageMessage extends AbstractMessage
 {
     #[ORM\Column(length: 255, options: ['comment' => '小程序卡片标题'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, options: ['comment' => '小程序页面路径'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $pagePath = null;
 
     #[ORM\Column(length: 255, options: ['comment' => '小程序卡片图片的媒体ID'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $thumbMediaId = null;
 
     public function getTitle(): ?string
@@ -29,11 +36,9 @@ class MpPageMessage extends AbstractMessage
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getPagePath(): ?string
@@ -41,11 +46,9 @@ class MpPageMessage extends AbstractMessage
         return $this->pagePath;
     }
 
-    public function setPagePath(string $pagePath): static
+    public function setPagePath(string $pagePath): void
     {
         $this->pagePath = $pagePath;
-
-        return $this;
     }
 
     public function getThumbMediaId(): ?string
@@ -53,11 +56,9 @@ class MpPageMessage extends AbstractMessage
         return $this->thumbMediaId;
     }
 
-    public function setThumbMediaId(string $thumbMediaId): static
+    public function setThumbMediaId(string $thumbMediaId): void
     {
         $this->thumbMediaId = $thumbMediaId;
-
-        return $this;
     }
 
     public function getMsgtype(): string
@@ -79,12 +80,12 @@ class MpPageMessage extends AbstractMessage
     public function toArray(): array
     {
         return [
-            'touser' => $this->getTouser(),
+            'touser' => $this->getTouser() ?? '',
             'msgtype' => $this->getMsgtype(),
             'miniprogrampage' => [
-                'title' => $this->getTitle(),
-                'pagepath' => $this->getPagePath(),
-                'thumb_media_id' => $this->getThumbMediaId(),
+                'title' => $this->getTitle() ?? '',
+                'pagepath' => $this->getPagePath() ?? '',
+                'thumb_media_id' => $this->getThumbMediaId() ?? '',
             ],
         ];
     }

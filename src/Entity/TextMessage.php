@@ -4,6 +4,7 @@ namespace WechatMiniProgramCustomServiceBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use WechatMiniProgramCustomServiceBundle\Repository\TextMessageRepository;
 
 /**
@@ -17,6 +18,8 @@ use WechatMiniProgramCustomServiceBundle\Repository\TextMessageRepository;
 class TextMessage extends AbstractMessage
 {
     #[ORM\Column(type: Types::TEXT, options: ['comment' => '消息文本内容'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 65535)]
     private ?string $content = null;
 
     /**
@@ -30,11 +33,9 @@ class TextMessage extends AbstractMessage
     /**
      * 设置消息文本内容
      */
-    public function setContent(string $content): static
+    public function setContent(string $content): void
     {
         $this->content = $content;
-
-        return $this;
     }
 
     public function getMsgtype(): string
@@ -54,10 +55,10 @@ class TextMessage extends AbstractMessage
     public function toArray(): array
     {
         return [
-            'touser' => $this->getTouser(),
+            'touser' => $this->getTouser() ?? '',
             'msgtype' => $this->getMsgtype(),
             'text' => [
-                'content' => $this->getContent(),
+                'content' => $this->getContent() ?? '',
             ],
         ];
     }

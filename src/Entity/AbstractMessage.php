@@ -26,7 +26,7 @@ abstract class AbstractMessage
     /**
      * 关联的微信小程序账号
      */
-    #[ORM\ManyToOne(targetEntity: Account::class)]
+    #[ORM\ManyToOne(targetEntity: Account::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Account $account = null;
 
@@ -57,11 +57,9 @@ abstract class AbstractMessage
         return $this->account;
     }
 
-    public function setAccount(?Account $account): static
+    public function setAccount(?Account $account): void
     {
         $this->account = $account;
-
-        return $this;
     }
 
     public function getTouser(): ?string
@@ -69,11 +67,9 @@ abstract class AbstractMessage
         return $this->touser;
     }
 
-    public function setTouser(string $touser): static
+    public function setTouser(string $touser): void
     {
         $this->touser = $touser;
-
-        return $this;
     }
 
     public function getCreateTime(): \DateTimeImmutable
@@ -94,7 +90,7 @@ abstract class AbstractMessage
      * 用于将消息转换为符合微信API要求的数组格式。
      * 每个具体的消息类型都需要实现此方法，确保返回正确的消息结构。
      *
-     * @return array 返回符合微信API格式的消息数组
+     * @return array<string, mixed> 返回符合微信API格式的消息数组
      */
     abstract public function toArray(): array;
 }

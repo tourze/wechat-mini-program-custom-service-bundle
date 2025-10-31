@@ -1,0 +1,66 @@
+deptrac:
+  paths:
+    - ./src
+  exclude_files:
+    - '#.*tests.*#'
+  layers:
+    - name: Controller
+      collectors:
+        - type: directory
+          value: src/Controller/.*
+    - name: Service
+      collectors:
+        - type: directory
+          value: src/Service/.*
+    - name: Repository
+      collectors:
+        - type: directory
+          value: src/Repository/.*
+    - name: Entity
+      collectors:
+        - type: directory
+          value: src/Entity/.*
+    - name: Request
+      collectors:
+        - type: directory
+          value: src/Request/.*
+    - name: EventSubscriber
+      collectors:
+        - type: directory
+          value: src/EventSubscriber/.*
+    - name: DataFixtures
+      collectors:
+        - type: directory
+          value: src/DataFixtures/.*
+    - name: DependencyInjection
+      collectors:
+        - type: directory
+          value: src/DependencyInjection/.*
+  ruleset:
+    Controller:
+      - Service
+      - Entity
+      - Request
+    Service:
+      - Repository
+      - Entity
+      - Request
+      - Controller # AttributeControllerLoader需要引用Controller来加载路由
+    Repository:
+      - Entity
+    Entity:
+      - Repository # Doctrine Entity注解需要指定repositoryClass
+    Request:
+      - Entity
+    EventSubscriber:
+      - Entity
+      - Service
+      - Request
+    DataFixtures:
+      - Entity
+      - Repository
+    DependencyInjection:
+      - Service
+      - Repository
+      - Entity
+      - Controller

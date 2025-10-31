@@ -24,8 +24,13 @@ class MessageListener
 
     public function postPersist(AbstractMessage $message): void
     {
+        $account = $message->getAccount();
+        if (null === $account) {
+            return;
+        }
+
         $request = new SendMessageRequest();
-        $request->setAccount($message->getAccount());
+        $request->setAccount($account);
         $request->setMessage($message);
 
         $this->client->asyncRequest($request);

@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WechatMiniProgramCustomServiceBundle\Tests\Entity;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WechatMiniProgramBundle\Entity\Account;
 use WechatMiniProgramCustomServiceBundle\Entity\AbstractMessage;
 
-class AbstractMessageTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(AbstractMessage::class)]
+final class AbstractMessageTest extends TestCase
 {
     /**
      * 创建一个 AbstractMessage 的具体实现用于测试
@@ -19,10 +26,13 @@ class AbstractMessageTest extends TestCase
                 return 'test';
             }
 
+            /**
+             * @return array<string, mixed>
+             */
             public function toArray(): array
             {
                 return [
-                    'touser' => $this->getTouser(),
+                    'touser' => $this->getTouser() ?? '',
                     'msgtype' => $this->getMsgtype(),
                     'test' => [],
                 ];
@@ -30,7 +40,7 @@ class AbstractMessageTest extends TestCase
         };
     }
 
-    public function testConstructor_shouldInitializeCreateTime(): void
+    public function testConstructorShouldInitializeCreateTime(): void
     {
         $message = $this->createConcreteMessage();
 
@@ -38,33 +48,33 @@ class AbstractMessageTest extends TestCase
         $this->assertLessThanOrEqual(2, time() - $message->getCreateTime()->getTimestamp());
     }
 
-    public function testGetAndSetAccount_shouldWorkCorrectly(): void
+    public function testGetAndSetAccountShouldWorkCorrectly(): void
     {
         $message = $this->createConcreteMessage();
+        // 使用 WechatMiniProgramBundle\Entity\Account 具体类进行 mock 的原因：
+        // 1. AbstractMessage 中的 account 属性直接使用了 Account 具体类，而非接口
+        // 2. Doctrine ORM 映射要求使用具体实体类，无法使用接口
+        // 3. Account 类是外部依赖包提供的实体，我们无法修改其定义为接口
         $account = $this->createMock(Account::class);
 
         $this->assertNull($message->getAccount());
 
-        $result = $message->setAccount($account);
-
-        $this->assertSame($message, $result);
+        $message->setAccount($account);
         $this->assertSame($account, $message->getAccount());
     }
 
-    public function testGetAndSetTouser_shouldWorkCorrectly(): void
+    public function testGetAndSetTouserShouldWorkCorrectly(): void
     {
         $message = $this->createConcreteMessage();
         $openId = 'oABC123456789';
 
         $this->assertNull($message->getTouser());
 
-        $result = $message->setTouser($openId);
-
-        $this->assertSame($message, $result);
+        $message->setTouser($openId);
         $this->assertSame($openId, $message->getTouser());
     }
 
-    public function testGetId_shouldReturnNull_whenIdIsNotSet(): void
+    public function testGetIdShouldReturnNullWhenIdIsNotSet(): void
     {
         $message = $this->createConcreteMessage();
 
