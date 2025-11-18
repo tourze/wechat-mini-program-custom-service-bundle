@@ -63,11 +63,6 @@ class LinkMessageCrudControllerTest extends AbstractEasyAdminControllerTestCase
         yield 'thumbUrl' => ['thumbUrl'];
     }
 
-    public function testGetEntityFqcn(): void
-    {
-        self::assertSame(LinkMessage::class, LinkMessageCrudController::getEntityFqcn());
-    }
-
     public function testConfigureCrud(): void
     {
         $controller = new LinkMessageCrudController();

@@ -54,11 +54,6 @@ class TextMessageCrudControllerTest extends AbstractEasyAdminControllerTestCase
         // content 字段是 TextareaField，测试框架只检查 input 字段，所以这里不包含
     }
 
-    public function testGetEntityFqcn(): void
-    {
-        self::assertSame(TextMessage::class, TextMessageCrudController::getEntityFqcn());
-    }
-
     public function testConfigureCrud(): void
     {
         $controller = new TextMessageCrudController();

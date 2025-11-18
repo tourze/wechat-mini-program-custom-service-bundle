@@ -54,11 +54,6 @@ class ImageMessageCrudControllerTest extends AbstractEasyAdminControllerTestCase
         yield 'mediaId' => ['mediaId'];
     }
 
-    public function testGetEntityFqcn(): void
-    {
-        self::assertSame(ImageMessage::class, ImageMessageCrudController::getEntityFqcn());
-    }
-
     public function testConfigureCrud(): void
     {
         $controller = new ImageMessageCrudController();

@@ -60,11 +60,6 @@ class MpPageMessageCrudControllerTest extends AbstractEasyAdminControllerTestCas
         yield 'thumbMediaId' => ['thumbMediaId'];
     }
 
-    public function testGetEntityFqcn(): void
-    {
-        self::assertSame(MpPageMessage::class, MpPageMessageCrudController::getEntityFqcn());
-    }
-
     public function testConfigureCrud(): void
     {
         $controller = new MpPageMessageCrudController();
