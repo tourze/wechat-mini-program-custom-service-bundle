@@ -41,7 +41,6 @@ final class MessageListenerTest extends TestCase
         // 这样既满足了集成测试的需求，又避免了容器服务替换的问题
         // 由于 MessageListener 是 Doctrine EntityListener，直接从容器获取会导致
         // "service is already initialized" 错误，因此我们直接实例化它
-        // @phpstan-ignore integrationTest.noDirectInstantiationOfCoveredClass
         $this->messageListener = new MessageListener($this->client);
     }
 

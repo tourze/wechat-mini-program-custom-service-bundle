@@ -61,7 +61,7 @@ class ImageMessageCrudControllerTest extends AbstractEasyAdminControllerTestCase
 
         // Test that configuration was applied successfully
         // The fact that method runs without exception validates behavior
-        self::expectNotToPerformAssertions();
+        $this->assertInstanceOf(Crud::class, $crud);
     }
 
     public function testConfigureFields(): void

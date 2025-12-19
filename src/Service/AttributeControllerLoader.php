@@ -17,7 +17,7 @@ use WechatMiniProgramCustomServiceBundle\Controller\TextMessageCrudController;
 
 #[AutoconfigureTag(name: 'routing.loader')]
 #[Autoconfigure(public: true)]
-class AttributeControllerLoader extends Loader implements RoutingAutoLoaderInterface
+final class AttributeControllerLoader extends Loader implements RoutingAutoLoaderInterface
 {
     private AttributeRouteControllerLoader $controllerLoader;
 

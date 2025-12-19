@@ -11,7 +11,7 @@ use WechatMiniProgramCustomServiceBundle\Entity\MpPageMessage;
  * @extends ServiceEntityRepository<MpPageMessage>
  */
 #[AsRepository(entityClass: MpPageMessage::class)]
-class MpMessageRepository extends ServiceEntityRepository
+final class MpMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

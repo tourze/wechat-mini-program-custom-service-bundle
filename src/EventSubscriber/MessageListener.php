@@ -16,7 +16,7 @@ use WechatMiniProgramCustomServiceBundle\Request\SendMessageRequest;
 #[AsEntityListener(event: Events::postPersist, method: 'postPersist', entity: ImageMessage::class)]
 #[AsEntityListener(event: Events::postPersist, method: 'postPersist', entity: LinkMessage::class)]
 #[AsEntityListener(event: Events::postPersist, method: 'postPersist', entity: MpPageMessage::class)]
-class MessageListener
+final class MessageListener
 {
     public function __construct(private readonly Client $client)
     {

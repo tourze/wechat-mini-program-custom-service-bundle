@@ -17,7 +17,7 @@ use WechatMiniProgramCustomServiceBundle\Entity\TextMessage;
  * 小程序客服消息管理后台菜单提供者
  */
 #[Autoconfigure(public: true)]
-readonly class AdminMenu implements MenuProviderInterface
+readonly final class AdminMenu implements MenuProviderInterface
 {
     public function __construct(
         private LinkGeneratorInterface $linkGenerator,

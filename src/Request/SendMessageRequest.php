@@ -5,7 +5,7 @@ namespace WechatMiniProgramCustomServiceBundle\Request;
 use WechatMiniProgramBundle\Request\WithAccountRequest;
 use WechatMiniProgramCustomServiceBundle\Entity\AbstractMessage;
 
-class SendMessageRequest extends WithAccountRequest
+final class SendMessageRequest extends WithAccountRequest
 {
     private AbstractMessage $message;
 

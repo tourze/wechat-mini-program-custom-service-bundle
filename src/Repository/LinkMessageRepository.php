@@ -11,7 +11,7 @@ use WechatMiniProgramCustomServiceBundle\Entity\LinkMessage;
  * @extends ServiceEntityRepository<LinkMessage>
  */
 #[AsRepository(entityClass: LinkMessage::class)]
-class LinkMessageRepository extends ServiceEntityRepository
+final class LinkMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
